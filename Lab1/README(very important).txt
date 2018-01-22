@@ -12,7 +12,7 @@ I used 10.2 mltbx format version.
 If the code has been successfully compiled on your machine, here are some suggested steps for you to follow.
 You are supposed to see 4 angles that have been initialized as 0,0,90,0 with a button below them named "Forward Kinematic", 
 click that button to get started.
-Now you should see a simulation graph of a human leg with 4 joints on the right.
+Now you should see a simulation graph of a human leg with 4 joints on the screen.
 
 From here, you can basically do 3 things.
 
