@@ -1,11 +1,14 @@
 This code has been created and tested on "MATLAB R2017b".
-In order to run this code successfully, users must install proper MATLAB tool boxes.
-Below is the link of the MATLAB tool box I used when I was writing this code.
-It won't be compiled without this tool box.
+In order to run this code successfully, users must have proper MATLAB tool boxes.
+Below is the link of the MATLAB tool box I used.
+Without this tool box, you won't see the dynamic simulation graphics.
+
 
 http://petercorke.com/wordpress/toolboxes/robotics-toolbox
 
-I used 10.2 mltbx format version.
+
+I used 10.2 version of the tool box.
+In my code, the tool box has been used for plotting job only, I used my own developed FK function and IK function.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
