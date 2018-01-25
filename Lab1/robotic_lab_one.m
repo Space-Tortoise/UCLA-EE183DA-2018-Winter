@@ -1,6 +1,3 @@
-
-
-
 function varargout = robotic_lab_one(varargin)
 % ROBOTIC_LAB_ONE MATLAB code for robotic_lab_one.fig
 %      ROBOTIC_LAB_ONE, by itself, creates a new ROBOTIC_LAB_ONE or raises the existing
