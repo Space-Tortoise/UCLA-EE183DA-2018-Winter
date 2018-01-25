@@ -9,6 +9,7 @@ http://petercorke.com/wordpress/toolboxes/robotics-toolbox
 
 I used 10.2 version of the tool box.
 In my code, the tool box has been used for plotting job only, I used my own developed FK function and IK function.
+After setting up the tool box, put both "fig" and "m" files in your MATLAB folder and run the "m" file.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
