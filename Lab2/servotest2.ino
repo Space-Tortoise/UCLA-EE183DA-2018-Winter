@@ -1,6 +1,8 @@
 #include <Servo.h>
 Servo servo1;
-int k=-0;
+int k=0;
+
+
 int p=7*k;
 void setup() {
 servo1.attach(D4);
