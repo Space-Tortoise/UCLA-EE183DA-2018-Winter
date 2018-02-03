@@ -1,6 +1,7 @@
 #include <Servo.h>
 Servo servo1;
-int k=0; // K is better between -10 and 10, any number that is outside this boundary might not work so well.
+int k=0; // K is better between -30 and 10, any number that is outside this boundary might not work so well.
+         // The positive numbers will make it faster and the negative numbers will make it slower.
 
 
 int p=7*k;
