@@ -4,7 +4,7 @@ int k=0; // K is better between -30 and 30, any number that is outside this boun
          // The positive numbers will make it faster and the negative numbers will make it slower.
 
 
-int p=7*k;
+int p=7*k; //I've figured out that it takes about 7ms for the servo to rotate 1 degree.
 
 void setup() {
 servo1.attach(D4);
