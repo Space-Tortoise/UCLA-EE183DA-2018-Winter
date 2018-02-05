@@ -154,10 +154,10 @@ void loop() {
 
  
    delay(280-p);        
-   tone(buzzerPin, frequency('d'), duration_s-p);   
-
+   tone(buzzerPin, frequency('d'), duration_s-p);          
+   delay(140-p);  
          
-   delay(140-p);   
+         
    delay(140-p); 
    tone(buzzerPin, frequency('c'), duration_s-p);     
          
