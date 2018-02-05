@@ -1,13 +1,16 @@
 #include <Servo.h>
 Servo servo1;
-const int buzzerPin = D0;
-int duration_L=280;
-int duration_s=140;
-int k=7; // K is better between -30 and 10, any number that is outside this boundary might not work so well.
+
+int k=0; // K is better between -30 and 10, any number that is outside this boundary might not work so well.
          // The positive numbers will make it faster and the negative numbers will make it slower.
 
 
 int p=7*k; //I've figured out that it takes about 7ms for the servo to rotate 1 degree.
+
+const int buzzerPin = D0; 
+
+int duration_L=280; //long duration for the buzzer note
+int duration_s=140; //short duration for the buzzer note
 
 
 void setup() {
@@ -19,10 +22,11 @@ void loop() {
   servo1.write(30+k);
 delay(2000);
 
+         
 servo1.write(70);    
-
-  delay(280-p);    
-   tone(buzzerPin, frequency('c'), duration_L-p);     
+  delay(280-p); //by the end of this delay, the servo will reach 70 degree and hit the "drum" .
+   tone(buzzerPin, frequency('c'), duration_L-p);  //At the same moment, the buzzer will play a note, 
+                                                   //this is how they get synchronized.   
 
   servo1.write(30+k);   
 
@@ -30,7 +34,6 @@ servo1.write(70);
 
   
   servo1.write(70);    
-
   delay(280-p); 
   tone(buzzerPin, frequency('c'), duration_L-p);          
 
