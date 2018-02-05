@@ -173,9 +173,9 @@ void loop() {
    servo1.write(70);    
    delay(280-p);        
    servo1.write(50+k);   
-
+   delay(140-p);  
          
-   delay(140-p);   
+         
    servo1.write(70);
    delay(140-p);    
    servo1.write(30+k);   
