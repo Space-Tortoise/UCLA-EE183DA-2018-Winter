@@ -2,7 +2,12 @@
 
 Servo servo_left;
 Servo servo_right;
-int stop_position=90; //For the 360 degree servo, 0 goes full speed clockwise; 90 stop spinning ;180 goes full speed counterclockwise.
+
+int stop_position=90; //For the 360 degree servo,
+                      //0 goes full speed clockwise; 
+                      //90 stop spinning ;
+                      //180 goes full speed counterclockwise.
+
 int friction=5; // If the surface is smooth, make this value greater.
 
 
