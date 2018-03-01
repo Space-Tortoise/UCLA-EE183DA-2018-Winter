@@ -32,10 +32,9 @@ m{5}=[140;210;pi/3];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-A=eye(3);
+A=eye(3);%Define indentity matrix
 I=A;
+
 
 P=[25 0 0;
     0 25 0;
@@ -212,7 +211,7 @@ hold on;
 plot_car(Target_State1,Target_State2,Target_State3,Target_State4);
 
 
-
+%%%%%%%%%%%%%%%%%%%% Helper Functions %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function z=state_difference1(current_angle)
 s=sin(current_angle);
@@ -247,4 +246,4 @@ hold on;
 plot(s1(1),s1(2),'o');
 end
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
