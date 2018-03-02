@@ -12,7 +12,7 @@ EST_State_Wheel_Center=Initial_State-state_difference1(Initial_State(3));
 
 TURE_State=EST_State_Wheel_Center; %Define the the true state for simulation purpose
 
-%%
+%%%%%%%%%%%%% Inputs %%%%%%%%%%%%%
 u{1}=[120;0]; %This is the first input, it means that "go forward by 120mm".
 u{2}=[0;pi/6];%This is the second input, it means that "turn to the left by 30 degree".
 u{3}=[120;0];
