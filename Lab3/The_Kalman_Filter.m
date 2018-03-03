@@ -12,16 +12,16 @@ EST_State_Wheel_Center=Initial_State-state_difference1(Initial_State(3));
 
 TURE_State=EST_State_Wheel_Center; %Define the the true state for simulation purpose
 
-%///////////////// Inputs /////////////////
+%///////////////// Inputs ///////////////////////
 u{1}=[120;0]; %This is the first input, it means that "go forward by 120mm".
 u{2}=[0;pi/6];%This is the second input, it means that "turn to the left by 30 degree".
 u{3}=[120;0];
 u{4}=[0;-2*pi/3];%This input means that "turn to the right by 120 degree".
 u{5}=[-100;0];%This input means that "go backward by 100mm".
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%////////////////////////////////////////////////
 
 
-%%%%%%%%%%%%%% Raw Measurements %%%%%%%%%%%%%%%%
+%///////////////// Raw Measurements ///////////////////////  
 %These are the made up measurements for the simulation test, we will need
 %to replace them with the real raw measurements from the sensors later.
 m{1}=[190;25;0];
@@ -29,7 +29,7 @@ m{2}=[223;100;pi/3];
 m{3}=[92;162;pi/3];
 m{4}=[49;210;pi/3];
 m{5}=[140;210;pi/3];
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%//////////////////////////////////////////////////////////
 
 
 
