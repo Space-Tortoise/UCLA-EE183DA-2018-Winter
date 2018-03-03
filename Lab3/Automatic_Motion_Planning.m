@@ -1,5 +1,5 @@
 clear all; close all; clc;
-%% Initialization
+% Initialization
 % Constants in mm
 global Cv;
 global Cr;
