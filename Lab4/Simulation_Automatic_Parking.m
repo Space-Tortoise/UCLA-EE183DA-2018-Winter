@@ -226,7 +226,7 @@ obs2_y=[box_width;box_width;box_width-right_obstacle_width;box_width-right_obsta
     x=[cor1(1);cor2(1);cor3(1);cor4(1);cor1(1)];
     y=[cor1(2);cor2(2);cor3(2);cor4(2);cor1(2)];
     plot(x,y);
-    axis([0 430 0 330]);   
+    axis([0 box_length 0 box_width]);     
     hold on;
     plot(cor1(1),cor1(2),'o');
     plot(obs1_x,obs1_y,'black','LineWidth',2);
