@@ -24,10 +24,10 @@ Cv = 120;
 Cr = 70 * pi/180;
 box_length=430;
 box_width=330;
-left_obstacle_length=140;
+left_obstacle_length=20;
 left_obstacle_width=80;
-right_obstacle_length=130; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
-right_obstacle_width=80;
+right_obstacle_length=150; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
+right_obstacle_width=100;
 car_length=115;
 car_width=85;
 car_semidiagonal=sqrt(car_length^2+(car_width/2)^2);
@@ -69,6 +69,7 @@ Is_there_a_solution=parking_solution_exists; %Check if it's possible to park in 
 if (Is_there_a_solution==0||Is_there_a_solution==2)
     fprintf('Sorry, I cannot park in this situation!!!\n');   
 else
+    x_joint=zeros(3,1);%The state that connects the Pre and Post parking process
     
     
 %//////////////////////// The Pre-Parking Process /////////////////////////
@@ -118,10 +119,7 @@ else
   trajectory_display(x3,x4);
   new_plot_car(x4);
   pause(1);
-  trajectory_display(x4,x5);
-  new_plot_car(x5);
-  pause(1);
-  
+  x_joint=x4;%Store the last state of the pre-parking process into the joint state
         
     else%When the car is close to the center of the box
         
@@ -146,13 +144,14 @@ else
         pause on;
         new_plot_car(x_ini);
         pause(2);
+        trajectory_display(x_ini,x1); 
         new_plot_car(x1);
-        pause(2);
+        pause(1);
+        trajectory_display(x1,x2); 
         new_plot_car(x2);
-        pause(2);
-        new_plot_car(x3);
-        pause(2);
-   
+        pause(1);
+        x_joint=x2;%Store the last state of the pre-parking process into the joint state
+ 
     end
     
     
@@ -179,7 +178,7 @@ else
        [x4, y4] = new_state_evo_to_sensor(x3, u{4});
 
        %Displaying the post-parking simulation
-       trajectory_display(x_start,x1); 
+       trajectory_display(x_joint,x1); 
        new_plot_car(x1);
        pause(1);
        trajectory_display(x1,x2);
@@ -458,7 +457,7 @@ boundary_x_right=box_length-car_semidiagonal-safety_distance;
 parking_space_middleline_x=left_obstacle_length+(box_length-left_obstacle_length-right_obstacle_length)/2;
 
 %Store the check point
-check_point=[parking_space_middleline_x;max(boundary_y_up,boundary_y_down)];
+check_point=[max(boundary_x_left,parking_space_middleline_x);max(boundary_y_up,boundary_y_down)];
 
 
 if x_ini>boundary_x_left&&x_ini<boundary_x_right&&y_ini<boundary_y_up&&y_ini>boundary_y_down
