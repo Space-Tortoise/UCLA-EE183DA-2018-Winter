@@ -1,41 +1,59 @@
 clear all; close all; clc;
-% Initialization
-% Constants in mm
-global Cv;
-global Cr;
-global box_length;
-global box_width;
-global left_obstacle_length;
-global left_obstacle_width;
-global right_obstacle_length;
-global right_obstacle_width;
-global car_length;
+
+%//////////////////////////////////////////////////////////////////////////
+%////////////////////////////Initialization ///////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+
+
+global Cv; %Translational coefficient of the robot
+global Cr; %Rotational coefficient of the robot
+global box_length; %The dimension of the box, this is the longer side
+global box_width;  %This is the shorter side
+global left_obstacle_length; %The distance from left to right of the obstacle located on the left top corner
+global left_obstacle_width;  %The distance from up to down of the obstacle located on the left top corner
+global right_obstacle_length; %The distance from left to right of the obstacle located on the right top corner
+global right_obstacle_width; %The distance from up to down of the obstacle located on the right top corner
+global car_length; %The dimensions of the robot
 global car_width;
-global car_semidiagonal;
-global safety_distance; %the distance we want the car to keep from the walls and obstacles
+global car_semidiagonal; %The distance from the rotating center to the further corner of the car
+global safety_distance; %The distance we want the car to keep from the walls and obstacles
 
-
-
+% Constants in mm or radians
 Cv = 120;
 Cr = 70 * pi/180;
 box_length=430;
 box_width=330;
 left_obstacle_length=140;
 left_obstacle_width=80;
-right_obstacle_length=130;
+right_obstacle_length=130; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
 right_obstacle_width=80;
 car_length=115;
 car_width=85;
 car_semidiagonal=sqrt(car_length^2+(car_width/2)^2);
 safety_distance=5; 
 
+index=1;%The index that is used for displaying figures
+x_ini = [140; 50; 0]; %The initial state of the sensor of the robot,
+                      %NOT the state of its rotating center!
+                      %x_ini=[x_coordinate, y_coordinate, heading angle]
+                      
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
 
 
-% initialization
-index=1;
-x_ini = [140; 50; 0];
+
+
+
+
+
+
+%//////////////////////////////////////////////////////////////////////////
+%////////////////////// Automatic Motion Planning /////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+
+
 c_ini=x_ini-center2sensor(x_ini(3));
-
 [situation,check_point]=initial_situation(c_ini(1),c_ini(2));
 [start,middle,destination,inputs] = milestones;
 
@@ -64,11 +82,11 @@ else
         u_s0{4}=[pre_parking_s0_input_4,pre_parking_s0_input_4];
         u_s0{5}=[-pre_parking_s0_input_5;pre_parking_s0_input_5];
         
-        [x1, y1] = state_evo_to_sensor(x_ini, u_s0{1});
-        [x2, y2] = state_evo_to_sensor(x1, u_s0{2});
-        [x3, y3] = state_evo_to_sensor(x2, u_s0{3});
-        [x4, y4] = state_evo_to_sensor(x3, u_s0{4});
-        [x5, y5] = state_evo_to_sensor(x4, u_s0{5});
+        [x1, y1] = state_evo_to_sensor1(x_ini, u_s0{1});
+        [x2, y2] = state_evo_to_sensor1(x1, u_s0{2});
+        [x3, y3] = state_evo_to_sensor1(x2, u_s0{3});
+        [x4, y4] = state_evo_to_sensor1(x3, u_s0{4});
+        [x5, y5] = state_evo_to_sensor1(x4, u_s0{5});
         
 %{
 hold on
@@ -78,26 +96,24 @@ plot_car(x2);
 plot_car(x3);
 plot_car(x4);
 plot_car(x5);
-%} 
-    
-      
+%}    
         figure(index);
-        plot_car(x_ini);
+        plot_car1(x_ini);
         index=1+index;
         figure(index);
-        plot_car(x1);
+        plot_car1(x1);
         index=1+index;
         figure(index);
-        plot_car(x2);
+        plot_car1(x2);
         index=1+index;
         figure(index);
-        plot_car(x3);
+        plot_car1(x3);
         index=1+index;
         figure(index);
-        plot_car(x4);
+        plot_car1(x4);
         index=1+index;
         figure(index);
-        plot_car(x5);
+        plot_car1(x5);
         index=1+index;
         
     else
@@ -113,9 +129,9 @@ plot_car(x5);
         u_s1{3}=[-pre_parking_s1_input_3;pre_parking_s1_input_3];
  
 
-        [x1, y1] = state_evo_to_sensor(x_ini, u_s1{1});
-        [x2, y2] = state_evo_to_sensor(x1, u_s1{2});
-        [x3, y3] = state_evo_to_sensor(x2, u_s1{3});
+        [x1, y1] = state_evo_to_sensor1(x_ini, u_s1{1});
+        [x2, y2] = state_evo_to_sensor1(x1, u_s1{2});
+        [x3, y3] = state_evo_to_sensor1(x2, u_s1{3});
         
 %{
 hold on
@@ -123,36 +139,25 @@ plot_car(x_ini);
 plot_car(x1);
 plot_car(x2);
 plot_car(x3);
-%} 
-        
-        
-        
+%}     
         figure(index);
-        plot_car(x_ini);
+        plot_car1(x_ini);
         index=1+index;
         figure(index);
-        plot_car(x1);
+        plot_car1(x1);
         index=1+index;
         figure(index);
-        plot_car(x2);
+        plot_car1(x2);
         index=1+index;
         figure(index);
-        plot_car(x3);
+        plot_car1(x3);
         index=1+index;
 
 
     end
-    
-    
-    
-    
+       
     center_start = [start(1); start(2); 0];
     x_start=center_start+center2sensor(center_start(3));
-  
-
- 
-    
-
     input_index_1=double(inputs(1));
     input_index_2=double(inputs(2));
     input_index_3=-double(inputs(1));
@@ -162,11 +167,10 @@ u{2}=[input_index_2,input_index_2];
 u{3}=[-input_index_3;input_index_3];
 u{4}=[input_index_4;input_index_4];
 
-[x1, y1] = state_evo_to_sensor(x_start, u{1});
-[x2, y2] = state_evo_to_sensor(x1, u{2});
-[x3, y3] = state_evo_to_sensor(x2, u{3});
-[x4, y4] = state_evo_to_sensor(x3, u{4});
-
+[x1, y1] = state_evo_to_sensor1(x_start, u{1});
+[x2, y2] = state_evo_to_sensor1(x1, u{2});
+[x3, y3] = state_evo_to_sensor1(x2, u{3});
+[x4, y4] = state_evo_to_sensor1(x3, u{4});
 %{
 hold on
 plot_car(x1);
@@ -174,22 +178,23 @@ plot_car(x2);
 plot_car(x3);
 plot_car(x4);
 %}
-
-
         figure(index);
-        plot_car(x1);
+        plot_car1(x1);
         index=1+index;
         figure(index);
-        plot_car(x2);
+        plot_car1(x2);
         index=1+index;
         figure(index);
-        plot_car(x3);
+        plot_car1(x3);
         index=1+index;
         figure(index);
-        plot_car(x4);
+        plot_car1(x4);
 
 end
 
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
 
 
 
@@ -198,21 +203,22 @@ end
 
 
 
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////// Functions  //////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
 
-
-
-function [x_next, y] = state_evo_to_sensor(x_before, u)
+function [x_next, y] = state_evo_to_sensor1(x_before, u)
 %   State Evolution, may want to add noise for simulation purposes
 
 global box_length;
 global box_width;
-    b = bfunction(x_before, u);
+    b = bfunction1(x_before, u);
     x_next = x_before + b;
-   % y = hfunction(x_next, Lx, Ly) + [10;10;10*pi/180].*wgn(3,1,1);
+   % y = hfunction(x_next, box_length, box_width) + [10;10;10*pi/180].*wgn(3,1,1);
    y=11;
 end
 
-function plot_car(x)
+function plot_car1(x)
 %UNTITLED10 Summary of this function goes here
 %   Detailed explanation goes here
 global box_length;
@@ -225,7 +231,7 @@ obs1_x=[0;left_obstacle_length;left_obstacle_length;0;0];
 obs1_y=[box_width;box_width;box_width-left_obstacle_width;box_width-left_obstacle_width;box_width];
 obs2_x=[box_length-right_obstacle_length;box_length;box_length;box_length-right_obstacle_length;box_length-right_obstacle_length];
 obs2_y=[box_width;box_width;box_width-right_obstacle_width;box_width-right_obstacle_width;box_width];
-    [cor1, cor2, cor3, cor4] = corners(x);
+    [cor1, cor2, cor3, cor4] = corners1(x);
     x=[cor1(1);cor2(1);cor3(1);cor4(1);cor1(1)];
     y=[cor1(2);cor2(2);cor3(2);cor4(2);cor1(2)];
     plot(x,y);
@@ -236,8 +242,7 @@ obs2_y=[box_width;box_width;box_width-right_obstacle_width;box_width-right_obsta
     plot(obs2_x,obs2_y,'black','LineWidth',2);
 end
 
-
-function [cor1,cor2,cor3,cor4] = corners(x)
+function [cor1,cor2,cor3,cor4] = corners1(x)
 % Given current state, find the x,y coordinates of the 
 % four corners of the car.
 % Start with the sensors corner, rotate anticlockwise 1, 2, 3 ,4
@@ -257,7 +262,7 @@ global car_width;
     cor4 = cor1 + [-car_length*c, -car_length*s];
 end
 
-function [ b ] = bfunction(x, u)
+function [ b ] = bfunction1(x, u)
 % Constant
 global Cv;
 global Cr;
@@ -277,8 +282,48 @@ global car_semidiagonal;
     a = p_str*Cv*c*tau_R-(1-p_str)*car_semidiagonal*(cos(a1)-cos(a2));
     d = p_str*Cv*s*tau_R+(1-p_str)*car_semidiagonal*(sin(a2)-sin(a1));
     c = (1-p_str)*Cr*tau_R;
-    b = [a;d;c];
-    
+    b = [a;d;c];  
+end
+
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+%//////////////////////////////////////////////////////////////////////////
+%/////////////////////////// New Functions ////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+
+
+function state_difference=center2sensor(current_angle)
+%This function gives the state difference between the rotating center and
+%the sensor corner. You can get sensor_state=center_state+state_difference,
+%you can also get center_state=sensor_state-state_difference.
+global car_length;
+global car_width;
+s=sin(current_angle);
+c=cos(current_angle);
+state_difference=[c -s;s c;0 0]*[car_length;-car_width/2];
+end
+
+function d=distance_between(x1,y1,x2,y2)
+%This function gives the distance between two points, the order of the
+%arguments doesn's matter.
+d=sqrt((x1-x2)^2+(y1-y2)^2);
+end
+
+function a=slope_angle(x_start,y_start,x_end,y_end)
+%This function gives the angle of the vector that is defined by a starting
+%point and an ending point. So the order of the arguments MATTERS!!!
+x=x_end-x_start;
+y=y_end-y_start;
+a=atan2(y,x);
 end
 
 function bool=parking_solution_exists %See if the parking space is big enough for parking
@@ -349,23 +394,7 @@ inputs=[input1,input2,input3];
 
 end
 
-function state_difference=center2sensor(current_angle)
-global car_length;
-global car_width;
-s=sin(current_angle);
-c=cos(current_angle);
-state_difference=[c -s;s c;0 0]*[car_length;-car_width/2];
-end
 
-function d=distance_between(x1,y1,x2,y2)
-d=sqrt((x1-x2)^2+(y1-y2)^2);
-end
-
-function a=slope_angle(x_start,y_start,x_end,y_end)
-x=x_end-x_start;
-y=y_end-y_start;
-a=atan2(y,x);
-end
 
 function [situation,check_point]=initial_situation(x_ini,y_ini)
 
@@ -392,5 +421,8 @@ else
     situation=0;
 end
 
-
 end
+
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////
