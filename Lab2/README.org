@@ -1,0 +1,167 @@
+#+OPTIONS: \n:t
+* [[https://ckwojai.github.io/EE183_JamBand/index.html][Landing Page]]
+  - Check out our [[https://www.youtube.com/watch?v=FkhUbZ_ER8M][video demo]]
+  - Check out our [[https://ckwojai.github.io/EE183_JamBand/documentation/documentation.html][step-by-step guide]]
+  - Check out our [[https://ckwojai.github.io/EE183_JamBand/control.html][awesome user interface]]
+  - Check out our complete code: [[https://github.com/ckwojai/EE183_JamBand/blob/master/buzzer.ino][buzzer.ino]] and [[https://github.com/ckwojai/EE183_JamBand/blob/master/servo.ino][servo.ino]].
+  - Check out our more detailed README below
+  - BY Amir, Angel, Lin, and Wilson
+* Introduction
+   :PROPERTIES:
+   :CUSTOM_ID: introduction
+   :END:
+
+Our goal was to build a musical "jam band" driven by two ESP8266
+microcontrollers, utilizing sensors and actuators. We have an autonomous
+mode which gives the user an option between two songs, /Row Row Your
+Boat/ and /Twinkle Twinkle/. The user can also decide the tempo of the
+song in the autonomous mode. The Human controlled mode allows a user to
+change the songs using a touch sensor and vary the speed of the song
+with an ultrasonic sensor. The user is given instructions on the website
+on how to modulate the jam band.
+
+* Bill of Materials
+   :PROPERTIES:
+   :CUSTOM_ID: bill-of-materials
+   :END:
+
+| *QTY* | *Part Number* | *Part Name*              | *Description*                      | *Spec Sheet* |
+|-------+---------------+--------------------------+------------------------------------+--------------|
+|     1 | FS90          | Micro Servo 9g           | Small blue, used for tapping       | [[http://www.mantech.co.za/Datasheets/Products/FITEC\_FS90.pdf][link]]         |
+|     1 | Accessory-187 | Jog Type Touch Sensor    | Square blue, 3 prong. Senses touch | [[https://www.amazon.com/Sensor-Capacitive-Arduino-Atomic-Market/dp/B00WH7O00U][link]]         |
+|     1 | HC - SR04     | Ultrasonic Raning Module | looks like robot eyes              | [[http://www.micropik.com/PDF/HCSR04.pdf][link]]         |
+|     2 | 12E           | ESP 8266MOD              | Microcontroller                    | [[http://amazingrobots.net/2017-2/resources/nodemcu\_pinout/][link]]         |
+|     1 | 571CK         | Chop Stick               | A wooden Chopstick                 | [[https://docs.google.com/viewer?url=patentimages.storage.googleapis.com/pdfs/US20090026782.pdf][link]]         |
+|     1 | MCBB400       | Breadboard               | For holding components             | [[https://www.melopero.com/datasheets/Breadboard.pdf][link]]         |
+|     1 | 1956725       | PCB Mini Buzzer          | a small black speaker              | [[https://www.jameco.com/z/SV8-Velleman-Audio-Indicator-and-Alerts-Buzzer-8mA-12-Volt-Solder-Through-Hole\_1956725.html][link]]         |
+|     1 | RS002C        | Wire Jumper Kit          | Wires for Connecting components    | [[https://www.jameco.com/z/RS002C-Dagu-HiTech-Electronic-Wire-Jumper-Kit-140-Pieces-100-Male-Cables-40-Female-Cables-5-Colors\_2150467.html][link]]         |
+|     1 | OOBG          | 330 ohm + 5% resistor    | a resistor                         | [[https://www.sparkfun.com/products/11507][link]]         |
+|     1 | 12E           | Motor Shield             | Housing for ESP 8266               | [[https://hackaday.io/project/8856-incubator-controller/log/29291-node-mcu-motor-shield][link]]         |
+|     2 | LP-503562     | 3.7v Battery             | Powers the robot                   | [[https://www.adafruit.com/product/258][link]]         |
+
+* Setup
+   :PROPERTIES:
+   :CUSTOM_ID: setup
+   :END:
+
+*** Instrument 1: Chopstick Drumstick
+    :PROPERTIES:
+    :CUSTOM_ID: instrument-1-chopstick-drumstick
+    :END:
+
+The drumstick instrument utilizes an ESP8266, a motor control board, a
+servo, and lastly a chopstick. This ESP8266 acted as the master in our
+jam band. It relayed information via two serial connections to the other
+ESP8266. The servo was connected to D0 on the master controller. This
+component also served as the host for the website.
+[[https://images-na.ssl-images-amazon.com/images/I/41-aA8t56uL._SX342_.jpg]]
+### Instrument 2: Buzzer The buzzer was a very useful instrument as the
+arduino code allowed us to play various notes with it. This instrument
+was connected to a reciever ESP8266. This ESP8266 awaited on commands
+from the master ESP8266 which would allow it to determine the song and
+tempo. [[http://www.futurlec.com/Pictures/3VPIEZOPCB.jpg]]
+
+* Steps
+   :PROPERTIES:
+   :CUSTOM_ID: steps
+   :END:
+** Step 1: ESP8266-E12 & MS
+    :PROPERTIES:
+    :CUSTOM_ID: step-1-esp8266-e12-mcu
+    :END:
+
+The ESP8266 is a microcontroller much like the popular Arduino, except
+it has built in wifi. Set up instructions can be found here.
+http://www.instructables.com/id/Programming-the-ESP8266-12E-using-Arduino-software/
+
+**** Pinout
+     :PROPERTIES:
+     :CUSTOM_ID: pinout
+     :END:
+
+[[http://amazingrobots.net/wp-content/uploads/2016/06/nodemcu_pinout.png]]
+[[http://amazingrobots.net/wp-content/uploads/2016/06/motor_shield_diagram.jpg]]
+
+** Step 2: Theory & Data Collection
+    :PROPERTIES:
+    :CUSTOM_ID: step-2-theory-data-collection
+    :END:
+
+[[https://github.com/waterbottels/EE183DALab2/blob/master/Component1.png]]
+[[https://github.com/waterbottels/EE183DALab2/blob/master/Component2.png]]
+
+[[https://github.com/waterbottels/EE183DALab2/blob/master/sensors1.png]]
+[[https://github.com/waterbottels/EE183DALab2/blob/master/sensors2.png]]
+[[https://github.com/waterbottels/EE183DALab2/blob/master/sensors3.png]]
+[[https://github.com/waterbottels/EE183DALab2/blob/master/sensors4.png]]
+[[https://github.com/waterbottels/EE183DALab2/blob/master/sensors5.png]]
+[[https://github.com/waterbottels/EE183DALab2/blob/master/sensors6.png]]
+
+** Step 3: Logic Design & Execution
+    :PROPERTIES:
+    :CUSTOM_ID: step-3-logic-design-execution
+    :END:
+
+For our schematics and Mechanical Design we used EAGLE and Fritzing.
+Here is a tutorial on EAGLE.
+https://learn.sparkfun.com/tutorials/how-to-install-and-setup-eagle
+
+You can play with the mechanical design of the board with Fritzing.
+http://fritzing.org/home/
+
+You can download our design here.
+https://github.com/waterbottels/EE183DALab2/blob/master/lab2\_Schematics.fzz
+
+Something to Note, We found some technical difficulties regarding
+the powering of all the instruments. We used an Arduino Uno to power the
+Ultrasonic sensor as it required 5Vdc to function properly. We found
+that batteries such as 3.7vDC LP or a Power Bank were sufficient to
+power most of the devices.
+
+#+CAPTION: alt text
+[[https://github.com/waterbottels/EE183DALab2/blob/master/mechanics.png]]
+
+[[https://github.com/waterbottels/EE183DALab2/blob/master/schematic.png]]
+** Step 4: Code 
+   The code can be found here [[https://github.com/ckwojai/EE183_JamBand/blob/master/buzzer.ino][buzzer.ino]] and [[https://github.com/ckwojai/EE183_JamBand/blob/master/servo.ino][servo.ino]].
+   [[https://github.com/ckwojai/EE183_JamBand/tree/master/]]
+
+* Multi-Robot Collaboration
+   :PROPERTIES:
+   :CUSTOM_ID: multi-robot-collaboration
+   :END:
+
+Essentially, one acts as a sender (master) and the other acts as a
+reciever (slave). Serial communication basically means the sender will
+do a Serial.Print('R') /(R stands for ready)/ before executing any
+instrument playing code. The receiver will check Serial.available() and
+the signal from the Serial buffer. If it gets an R, it sets this alue as
+true which iniates the instrument playing code. This is true for the
+tempo and song selection.
+
+* Website
+   :PROPERTIES:
+   :CUSTOM_ID: website
+   :END:
+
+Website: [[https://ckwojai.github.io/EE183_JamBand/index.html]] The drum micro
+controller (Master) is connected to a home Wifi. Go into the router
+settings and do port forwarding at port 80 (this is done in the code).
+You can use a service such as www.whatsmyip.org tofind your IP address.
+This IP Address can be used by anyone who wants to access your robot
+controls, or you can create a web infterface and host it via github
+which directly links to your robots controls.
+
+#+CAPTION: alt text
+[[https://github.com/waterbottels/EE183DALab2/blob/master/website2.png]]
+
+* Demonstrations
+   :PROPERTIES:
+   :CUSTOM_ID: demonstrations
+   :END:
+   Here is a [[https://www.youtube.com/watch?v=FkhUbZ_ER8M][video demonstration]] of JamBand.
+
+
+
+
+
