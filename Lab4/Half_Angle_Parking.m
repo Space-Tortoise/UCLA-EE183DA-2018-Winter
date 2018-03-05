@@ -65,6 +65,20 @@ c_ini=x_ini-center2sensor(x_ini(3));%Transpose the sensor state to the center st
 [start,middle,destination,inputs] = milestones; %Get the milestone points for the post-parking plan
 [situation,check_point]=initial_situation(c_ini(1),c_ini(2),start(2));%Check the initial position
 Is_there_a_solution=parking_solution_exists; %Check if it's possible to park in this situation
+start(1)=double(start(1));
+start(2)=double(start(2));
+middle(1)=double(middle(1));
+middle(2)=double(middle(2));
+destination(1)=double(destination(1));
+destination(2)=double(destination(2));
+check_point(1)=double(check_point(1));
+check_point(2)=double(check_point(2));
+inputs(1)=double(inputs(1));
+inputs(2)=double(inputs(2));
+inputs(3)=double(inputs(3));
+
+
+
 
 if (Is_there_a_solution==0||Is_there_a_solution==2)
     fprintf('Sorry, I cannot park in this situation!!!\n');   
