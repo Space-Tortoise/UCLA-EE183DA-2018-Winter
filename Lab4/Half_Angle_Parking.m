@@ -384,7 +384,7 @@ solx = vpa(solve(eqn, x));
 
 
 %Get the coordinates of the middle point from the solution
-middle_x=solx(1);
+middle_x=double(solx(1));
 middle_y=destination_y;
 
 angle1=acos((middle_x-f)/R);
