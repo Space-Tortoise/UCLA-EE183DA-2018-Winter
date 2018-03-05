@@ -22,8 +22,8 @@ global N; %A constant that is used to control the simulation speed, the smaller 
 % Constants in mm or radians
 Cv = 120;
 Cr = 70 * pi/180;
-box_length=630;
-box_width=630;
+box_length=430;
+box_width=330;
 left_obstacle_length=140;
 left_obstacle_width=85;
 right_obstacle_length=130; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
@@ -65,27 +65,12 @@ c_ini=x_ini-center2sensor(x_ini(3));%Transpose the sensor state to the center st
 [start,middle,destination,inputs] = milestones; %Get the milestone points for the post-parking plan
 [situation,check_point]=initial_situation(c_ini(1),c_ini(2),start(2));%Check the initial position
 Is_there_a_solution=parking_solution_exists; %Check if it's possible to park in this situation
-start(1)=double(start(1));
-start(2)=double(start(2));
-middle(1)=double(middle(1));
-middle(2)=double(middle(2));
-destination(1)=double(destination(1));
-destination(2)=double(destination(2));
-check_point(1)=double(check_point(1));
-check_point(2)=double(check_point(2));
-inputs(1)=double(inputs(1));
-inputs(2)=double(inputs(2));
-inputs(3)=double(inputs(3));
-
-
-
 
 if (Is_there_a_solution==0||Is_there_a_solution==2)
     fprintf('Sorry, I cannot park in this situation!!!\n');   
 else    
     
-    
-    
+      
 %//////////////////////// The Pre-Parking Process /////////////////////////      
   %Define important parameters
   angle1=slope_angle(c_ini(1),c_ini(2),check_point(1),check_point(2));       
@@ -97,10 +82,10 @@ else
   
         
   %Define inputs
-  pre_parking_s0_input_1=double(turning_angle1/Cr);
-  pre_parking_s0_input_2=double(distance1/Cv);
-  pre_parking_s0_input_3=double(turning_angle2/Cr);
-  pre_parking_s0_input_4=double(distance2/Cv);   
+  pre_parking_s0_input_1=turning_angle1/Cr;
+  pre_parking_s0_input_2=distance1/Cv;
+  pre_parking_s0_input_3=turning_angle2/Cr;
+  pre_parking_s0_input_4=distance2/Cv;   
   u_s0{1}=[-pre_parking_s0_input_1;pre_parking_s0_input_1]; 
   u_s0{2}=[pre_parking_s0_input_2,pre_parking_s0_input_2];
   u_s0{3}=[-pre_parking_s0_input_3;pre_parking_s0_input_3];
@@ -138,14 +123,14 @@ else
     
 %//////////////////////// The Post-Parking Process ////////////////////////
        %Define important parameters
-       center_start = [double(start(1)); double(start(2)); 0];
+       center_start = [start(1); start(2); 0];
        x_start=center_start+center2sensor(center_start(3));
        
        %Define inputs
-       input_index_1=double(inputs(1));
-       input_index_2=double(inputs(2));
-       input_index_3=-double(inputs(1));
-       input_index_4=double(inputs(3));
+       input_index_1=inputs(1);
+       input_index_2=inputs(2);
+       input_index_3=-inputs(1);
+       input_index_4=inputs(3);
        u{1}=[-input_index_1;input_index_1]; 
        u{2}=[input_index_2,input_index_2];
        u{3}=[-input_index_3;input_index_3];
@@ -395,9 +380,9 @@ start_x=box_length-right_obstacle_length;
 start_y=middle_y-tan(angle2)*(start_x-middle_x);
 
 %Store the inputs that are needed for this motion plan
-input1 = -vpa(angle2/Cr);
-input2=vpa(-distance_between(middle_x,middle_y,start_x,start_y)/Cv);
-input3=vpa((destination_x-middle_x)/Cv);
+input1 = -angle2/Cr;
+input2=-distance_between(middle_x,middle_y,start_x,start_y)/Cv;
+input3=(destination_x-middle_x)/Cv;
 
 %Output the coordinates of the milestone points and the corresponding
 %inputs.
