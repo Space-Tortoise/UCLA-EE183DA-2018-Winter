@@ -22,7 +22,7 @@ global N; %A constant that is used to control the simulation speed, the smaller 
 % Constants in mm or radians
 Cv = 120;
 Cr = 70 * pi/180;
-box_length=420;
+box_length=430;
 box_width=330;
 left_obstacle_length=130;
 left_obstacle_width=85;
@@ -129,7 +129,9 @@ else
        
 %//////////////////////// Action Required!!! //////////////////////////////
 %///////////////////// Update Read_Estimated_State ////////////////////////
-Read_Estimated_State=[260; 200; pi/8];%Replace this with the real one
+Read_Estimated_State=[260; 200; 0.39];%Replace this with the real one
+%If there are no errors at all, P=0 and Q=0, like in the simulation world,
+%it should read this value Read_Estimated_State=[307.8990; 177.2416; 0.2923];
 %//////////////////////////////////////////////////////////////////////////
        
       
@@ -178,7 +180,9 @@ Read_Estimated_State=[260; 200; pi/8];%Replace this with the real one
        
 %//////////////////////// Action Required!!! //////////////////////////////
 %///////////////////// Update Read_Estimated_State ////////////////////////
-Read_Estimated_State=[420; 150; 0]; %Replace this with the real one
+Read_Estimated_State=[410; 150; 0.1]; %Replace this with the real one
+%If there are no errors at all, P=0 and Q=0, like in the simulation world,
+%it should read this value Read_Estimated_State=[415.0000; 142.2953; 0];
 %//////////////////////////////////////////////////////////////////////////
        
        
@@ -238,6 +242,8 @@ Read_Estimated_State=[420; 150; 0]; %Replace this with the real one
 %//////////////////////// Action Required!!! //////////////////////////////
 %///////////////////// Update Read_Estimated_State ////////////////////////
 Read_Estimated_State=[228; 175; -0.67];%Replace this with the real one
+%If there are no errors at all, P=0 and Q=0, like in the simulation world,
+%it should read this value Read_Estimated_State=[229.4732; 182.0130; -0.6067];
 %//////////////////////////////////////////////////////////////////////////
        
    
@@ -288,6 +294,8 @@ Read_Estimated_State=[228; 175; -0.67];%Replace this with the real one
 %//////////////////////// Action Required!!! //////////////////////////////
 %///////////////////// Update Read_Estimated_State ////////////////////////
 Read_Estimated_State=[265; 230; -0.1]; %Replace this with the real one
+%If there are no errors at all, P=0 and Q=0, like in the simulation world,
+%it should read this value Read_Estimated_State=[272.5000; 240.0000; 0];
 %//////////////////////////////////////////////////////////////////////////
        
 
