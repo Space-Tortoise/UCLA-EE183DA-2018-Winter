@@ -28,11 +28,11 @@ left_obstacle_length=140;
 left_obstacle_width=85;
 right_obstacle_length=130; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
 right_obstacle_width=85;
-car_length=115;
-car_width=85;
+car_length=100;
+car_width=100;
 car_semidiagonal=sqrt(car_length^2+(car_width/2)^2);
 safety_distance=5; 
-N=30;
+N=20;
 
 x_ini = [160; 100; 0]; %The initial state of the sensor of the robot,
                       %NOT the state of its rotating center!
@@ -64,7 +64,7 @@ x_ini = [160; 100; 0]; %The initial state of the sensor of the robot,
 c_ini=x_ini-center2sensor(x_ini(3));%Transpose the sensor state to the center state
 [start,middle,destination,inputs] = milestones; %Get the milestone points for the post-parking plan
 [situation,check_point]=initial_situation(c_ini(1),c_ini(2),start(2));%Check the initial position
-Is_there_a_solution=parking_solution_exists; %Check if it's possible to park in this situation
+Is_there_a_solution=parking_solution_exists(middle(1)); %Check if it's possible to park in this situation
 
 if (Is_there_a_solution==0||Is_there_a_solution==2)
     fprintf('Sorry, I cannot park in this situation!!!\n');   
@@ -292,7 +292,7 @@ y=y_end-y_start;
 a=atan2(y,x);
 end
 
-function bool=parking_solution_exists 
+function bool=parking_solution_exists(distance) 
 %This function will check if the automatic parking is possible for the
 %current situation. If it's possible it will return 1.
 global box_length;
@@ -301,6 +301,7 @@ global right_obstacle_length;
 global car_length;
 global safety_distance;
 global car_semidiagonal;
+safe_distance=box_length-right_obstacle_length-safety_distance-distance;
 
 if right_obstacle_length<(safety_distance+car_semidiagonal)
 %This will check the length of the right top obstacle, the right top
@@ -309,7 +310,7 @@ if right_obstacle_length<(safety_distance+car_semidiagonal)
 %car.
     bool=2;
     fprintf('The length of the right obstacle is too small...\n');
-elseif(box_length-left_obstacle_length-right_obstacle_length-safety_distance*2<=car_length*1.3)
+elseif(safe_distance<car_semidiagonal)
 %This will check if the parking space is big enough to park, this algorithm
 %can successfully park as long as the space's length is bigger than 1.3
 %times of the car length.
