@@ -22,8 +22,8 @@ global N; %A constant that is used to control the simulation speed, the smaller 
 % Constants in mm or radians
 Cv = 120;
 Cr = 70 * pi/180;
-box_length=430;
-box_width=330;
+box_length=630;
+box_width=630;
 left_obstacle_length=140;
 left_obstacle_width=85;
 right_obstacle_length=130; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
@@ -34,7 +34,7 @@ car_semidiagonal=sqrt(car_length^2+(car_width/2)^2);
 safety_distance=5; 
 N=30;
 
-x_ini = [145; 100; 0]; %The initial state of the sensor of the robot,
+x_ini = [160; 100; 0]; %The initial state of the sensor of the robot,
                       %NOT the state of its rotating center!
                       %x_ini=[x_coordinate, y_coordinate, heading angle]
                       
