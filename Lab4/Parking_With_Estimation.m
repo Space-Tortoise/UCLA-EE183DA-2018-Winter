@@ -135,7 +135,11 @@ Read_Estimated_State=[260; 200; 0.39];%Replace this with the real one
 %//////////////////////////////////////////////////////////////////////////
        
       
-       
+       %Collect states info for future use
+       Ideal_State{1}=x_pre2;
+       Estimated_State{1}=Read_Estimated_State;
+      
+      
        x_pre2=Read_Estimated_State;
        new_plot_car(x_pre2);%display the process
        pause(1);
@@ -184,8 +188,10 @@ Read_Estimated_State=[410; 150; 0.1]; %Replace this with the real one
 %If there are no errors at all, P=0 and Q=0, like in the simulation world,
 %it should read this value Read_Estimated_State=[415.0000; 142.2953; 0];
 %//////////////////////////////////////////////////////////////////////////
-       
-       
+  
+       %Collect states info for future use
+       Ideal_State{2}=x_pre4;
+       Estimated_State{2}=Read_Estimated_State;      
        
        
        
@@ -246,7 +252,9 @@ Read_Estimated_State=[228; 175; -0.67];%Replace this with the real one
 %it should read this value Read_Estimated_State=[229.4732; 182.0130; -0.6067];
 %//////////////////////////////////////////////////////////////////////////
        
-   
+        %Collect states info for future use
+        Ideal_State{3}=x_post2;
+        Estimated_State{3}=Read_Estimated_State; 
 
         x_post2=Read_Estimated_State;
         new_plot_car(x_post2);%display the process
@@ -298,11 +306,23 @@ Read_Estimated_State=[265; 230; -0.1]; %Replace this with the real one
 %it should read this value Read_Estimated_State=[272.5000; 240.0000; 0];
 %//////////////////////////////////////////////////////////////////////////
        
-
+        %Collect states info for future use
+        Ideal_State{4}=x_post4;
+        Estimated_State{4}=Read_Estimated_State; 
 
         x_final=Read_Estimated_State;
         new_plot_car(x_final);%display the result
-        pause off;   
+        pause off;  
+        
+        
+        for i=1:1:4
+            figure(i)
+            graph1=output_plot(Ideal_State{i});
+            hold on;
+            graph2=output_plot(Estimated_State{i}) ; 
+            hold off;
+            legend([graph1 graph2],{'Ideal State','Estimated State'},'Location','southwest');
+        end
         
 end
 
@@ -355,6 +375,33 @@ obs2_y=[box_width;box_width;box_width-right_obstacle_width;box_width-right_obsta
     x=[cor1(1);cor2(1);cor3(1);cor4(1);cor1(1)];
     y=[cor1(2);cor2(2);cor3(2);cor4(2);cor1(2)];
     plot(x,y);
+    axis([0 box_length 0 box_width]);     
+    hold on;
+    plot(cor1(1),cor1(2),'o');
+    plot(obs1_x,obs1_y,'black','LineWidth',2);
+    plot(obs2_x,obs2_y,'black','LineWidth',2);
+    hold off;
+    
+end
+
+
+function output=output_plot(x)
+%UNTITLED10 Summary of this function goes here
+%   Detailed explanation goes here
+global box_length;
+global box_width;
+global left_obstacle_length;
+global left_obstacle_width;
+global right_obstacle_length;
+global right_obstacle_width;
+obs1_x=[0;left_obstacle_length;left_obstacle_length;0;0];
+obs1_y=[box_width;box_width;box_width-left_obstacle_width;box_width-left_obstacle_width;box_width];
+obs2_x=[box_length-right_obstacle_length;box_length;box_length;box_length-right_obstacle_length;box_length-right_obstacle_length];
+obs2_y=[box_width;box_width;box_width-right_obstacle_width;box_width-right_obstacle_width;box_width];
+    [cor1, cor2, cor3, cor4] = new_corners(x);
+    x=[cor1(1);cor2(1);cor3(1);cor4(1);cor1(1)];
+    y=[cor1(2);cor2(2);cor3(2);cor4(2);cor1(2)];
+    output=plot(x,y);
     axis([0 box_length 0 box_width]);     
     hold on;
     plot(cor1(1),cor1(2),'o');
