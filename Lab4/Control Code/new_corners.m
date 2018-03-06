@@ -2,7 +2,6 @@ function [corner1,corner2,corner3,corner4] = new_corners(x)
 % Given current state, find the x,y coordinates of the 
 % four corners of the car.
 % Start with the sensors corner, rotate anticlockwise 1, 2, 3 ,4
-    % Constant
 global car_length;
 global car_width;
     % Unpack
