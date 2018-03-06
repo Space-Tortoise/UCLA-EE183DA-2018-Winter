@@ -1,6 +1,7 @@
 function IsThisParkingPossible(distance) 
 %This function will check if the automatic parking is possible for the
-%current situation. If it's possible it will return 1.
+%current parameter settings.
+%It will throw error messages if the parking is not possible
 global box_length;
 global right_obstacle_length;
 global safety_distance;
