@@ -57,6 +57,8 @@ Milestones(6)=middle_y;
 Milestones(7)=destination_x;
 Milestones(8)=destination_y;
 
-
+%Check the dimension settings to determine if it's possible to park
+%It will throw error messages if the parking is not possible
+IsThisParkingPossible(middle_x);
 
 end
