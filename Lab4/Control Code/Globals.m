@@ -21,16 +21,16 @@ global Expected_Angle; %This angle will be used for plotting purposes
 % Constants in mm or radians
 Cv = 120;
 Cr = 70 * pi/180;
-box_length=430;
-box_width=330;
-left_obstacle_length=130;
-left_obstacle_width=85;
-right_obstacle_length=130; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
-right_obstacle_width=85;
+box_length=470;
+box_width=370;
+left_obstacle_length=120;
+left_obstacle_width=100;
+right_obstacle_length=160; %For now, don't make this value too small, make it bigger than car_semidiagonal+safety_distance
+right_obstacle_width=100;
 car_length=115;
 car_width=85;
 car_semidiagonal=sqrt(car_length^2+(car_width/2)^2);
-safety_distance=5; 
+safety_distance=15; 
 N=30;
 
 
