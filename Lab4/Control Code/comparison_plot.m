@@ -1,7 +1,6 @@
 
 function output=comparison_plot(x)
-%UNTITLED10 Summary of this function goes here
-%   Detailed explanation goes here
+
 Globals;
 
 obs1_x=[0;left_obstacle_length;left_obstacle_length;0;0];
