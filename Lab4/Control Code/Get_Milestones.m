@@ -45,22 +45,17 @@ angle2=pi/2-angle1;
 start_x=box_length-right_obstacle_length;
 start_y=middle_y-tan(angle2)*(start_x-middle_x);
 
-%c_ini=initial_state-center2sensor(initial_state(3));
 
 %Store the Milestone coordinates
 important_distance=sqrt((car_semidiagonal)^2-(box_width-right_obstacle_width-safety_distance-start_y)^2);
 Milestones(1)=box_length-right_obstacle_length-safety_distance-important_distance;
 Milestones(2)=start_y;
-%Milestones(3)=slope_angle(c_ini(1),c_ini(2),Milestones(1),Milestones(2));
 Milestones(3)=start_x;
 Milestones(4)=start_y;
-%Milestones(6)=slope_angle(Milestones(1),Milestones(2),Milestones(4),Milestones(5));
 Milestones(5)=middle_x;
 Milestones(6)=middle_y;
-%Milestones(9)=slope_angle(Milestones(4),Milestones(5),Milestones(7),Milestones(8));
 Milestones(7)=destination_x;
 Milestones(8)=destination_y;
-%Milestones(12)=slope_angle(Milestones(7),Milestones(8),Milestones(10),Milestones(11));
 
 
 
