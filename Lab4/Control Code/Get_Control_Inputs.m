@@ -106,14 +106,7 @@ u_move=[moving_distance;moving_distance];
     hold off;
     legend([graph1 graph2],{'Expected State','Estimated State'},'Location','southwest');
     Expected_Angle=0;
- %{   
-    if Milestones(Estimation_Index*2-1)>=estimated_state_center(1)
-        Expected_Angle=slope_angle(estimated_state_center(1),estimated_state_center(2),Milestones(Estimation_Index*2-1),Milestones(Estimation_Index*2));
-    else
-        Expected_Angle=slope_angle(Milestones(Estimation_Index*2-1),Milestones(Estimation_Index*2),estimated_state_center(1),estimated_state_center(2));
-    end
- %}   
-    
+
 else
     u_turn=[0;0];
     u_move=[0;0];
@@ -133,63 +126,3 @@ end
 
 
 
-
-
-%{
-
-
-if Estimation_Index>4
-    u_turn=[0;0];
-    u_move=[0;0];
-else
-x_difference=Milestones(Estimation_Index*2-1)-estimated_state_center(1);
-y_difference=Milestones(Estimation_Index*2)-estimated_state_center(2);
-angle=atan2(y_difference,x_difference);
-helper_sign=1;
-
-moving_input_sign=sign([cos(angle);sin(angle)]'*[x_difference;y_difference]);
-turning_angle=(angle-Estimated_State(3))/Cr;
-if Estimation_Index==3
-  turning_angle=((angle-Estimated_State(3))-pi)/Cr; 
-  helper_sign=-1;
-end
-if Estimation_Index==4
-  turning_angle=-Estimated_State(3)/Cr; 
-  helper_sign=-1;
-end
-moving_distance=helper_sign*moving_input_sign*(sqrt((x_difference)^2+(y_difference)^2))/Cv;
-u_turn=[-turning_angle;turning_angle];
-u_move=[moving_distance;moving_distance];
-
-end
-
-
-if Estimation_Index~=1
-    Expected_Angle
-    Expected_Center_State=[Milestones(Estimation_Index*2-3);Milestones(Estimation_Index*2-2);Expected_Angle];
-    Expected_State=Expected_Center_State+center2sensor(Expected_Center_State(3));
-    figure(Estimation_Index-1)
-    graph1=comparison_plot(Expected_State);
-    hold on;
-    graph2=comparison_plot(Estimated_State) ; 
-    hold off;
-    legend([graph1 graph2],{'Expected State','Estimated State'},'Location','southwest');
-end
-
-if Estimation_Index==3
-    Expected_Angle=slope_angle(Milestones(Estimation_Index*2-1),Milestones(Estimation_Index*2),estimated_state_center(1),estimated_state_center(2));
-elseif Estimation_Index==4
-    if Milestones(Estimation_Index*2-1)>=estimated_state_center(1)
-        Expected_Angle=slope_angle(estimated_state_center(1),estimated_state_center(2),Milestones(Estimation_Index*2-1),Milestones(Estimation_Index*2));
-    else
-        Expected_Angle=slope_angle(Milestones(Estimation_Index*2-1),Milestones(Estimation_Index*2),estimated_state_center(1),estimated_state_center(2));
-    end
-    
-elseif Estimation_Index==5
-    Expected_Angle=0;
-else
-    Expected_Angle=slope_angle(estimated_state_center(1),estimated_state_center(2),Milestones(Estimation_Index*2-1),Milestones(Estimation_Index*2))
-end
-
-end
-%}
