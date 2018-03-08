@@ -2,7 +2,7 @@ Design of Robotic Systems
 
 #+OPTIONS: \n:t
 
-  - Lab1: Robotic Leg Motion Simulation
+  - Lab1: Robotic Leg Simulation
   - Lab2: Robotic Band Design
   - Lab3: Robotic Car State Estimation
   - Lab4: Automatic Parallel Parking
