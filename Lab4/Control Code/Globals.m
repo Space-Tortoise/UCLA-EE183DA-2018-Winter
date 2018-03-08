@@ -31,7 +31,7 @@ global Close_Enough;%Determine if it's close enough to the target position.
 % Constants in mm or radians
 Cv = 120;
 Cr = 70 * pi/180;
-box_length=470;
+box_length=485;
 box_width=370;
 left_obstacle_length=120;
 left_obstacle_width=100;
@@ -40,11 +40,11 @@ right_obstacle_width=100;
 car_length=115;
 car_width=85;
 car_semidiagonal=sqrt(car_length^2+(car_width/2)^2);
-safety_distance=15; 
+safety_distance=20; 
 N=30;
 
 %make the value small if you have a higher level accuracy requirement for a specific point.
-acceptable_radius1=10;%distance in mm
+acceptable_radius1=300;%distance in mm
 acceptable_radius2=300;
 acceptable_radius3=300;
 acceptable_radius4=300;
