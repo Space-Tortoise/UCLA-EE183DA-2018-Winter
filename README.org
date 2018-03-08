@@ -1,4 +1,4 @@
-# UCLA-EE183DA-2018-Winter
+UCLA-EE183DA-2018-Winter
 Design of Robotic Systems
 
 
@@ -6,10 +6,9 @@ Design of Robotic Systems
 
 
 #+OPTIONS: \n:t
-* [[https://ckwojai.github.io/EE183_JamBand/index.html][Landing Page]]
+
   - Lab1: Robotic Leg Motion Simulation
   - Lab2: Robotic Band Design
   - Lab3: Robotic Car State Estimation
   - Lab4: Automatic Parallel Parking
-  - Check out our more detailed README below
-  - BY Amir, Angel, Lin, and Wilson
+
