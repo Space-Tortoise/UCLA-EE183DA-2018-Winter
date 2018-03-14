@@ -1,4 +1,4 @@
 #+OPTIONS: \n:t
 
-  - Check out our [[https://www.youtube.com/watch?v=FkhUbZ_ER8M][video demo]]
+  -  [[https://www.youtube.com/watch?v=yQWBXbfYFGY&feature=youtu.be][Click here to watch the parallel parking demo video.]]
 
