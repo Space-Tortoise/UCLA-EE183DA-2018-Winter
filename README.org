@@ -7,3 +7,5 @@ Design of Robotic Systems
   - Lab3: Robotic Car State Estimation
   - Lab4: Automatic Parallel Parking
 
+Don't forget to check my YouTube channel for the facinating demo videos!
+https://www.youtube.com/channel/UC8SiAGUCN-BGUuz_uFmv4Dg
